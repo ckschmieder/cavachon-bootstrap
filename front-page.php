@@ -13,24 +13,38 @@ global $more;		// Should WP display the conent after ---more--- ? (0=false; 1=tr
 	<main id="main" class="site-main" role="main">
 
 <!-- CALL-TO-ACTION -->
-		<section id="welcome-gleneden">
-			<div class="content container">
-			<!-- <div class="indent clear"> -->
-				<?php 
-				$query = new WP_Query( 'pagename=call-to-action' );
-				// The Loop
-				if ( $query->have_posts() ) {
-					while ( $query->have_posts() ) {
-						$query->the_post();
-						echo '<div class="entry-content">';
-						the_content();
-						echo '</div>';
-					}
-				}					
-				/* Restore original Post Data */
-				wp_reset_postdata();
-				?>
-			</div>
+		<section class="page" id="welcome-gleneden">
+			<div class="content container">				
+				
+					<?php 
+					$query = new WP_Query( 'pagename=call-to-action' );
+					// The Loop
+					if ( $query->have_posts() ) {
+						while ( $query->have_posts() ) {
+							$query->the_post(); ?>
+
+							<h2 class="page-heading"><?php the_title(); ?></h2>
+
+							<div class="flex-container-row">								
+									<?php 
+									if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
+										the_post_thumbnail( 'medium' );
+									} 
+									?>
+							
+															
+
+									<div class="page-body"><?php the_content(); ?></div>
+								
+								
+							</div><!-- END row -->
+							
+						<?php }
+					}					
+					/* Restore original Post Data */
+					wp_reset_postdata();
+					?>
+			</div><!-- .content .container -->
 		</section><!-- #call-to-action -->
 
 <!-- TESTIMONIALS -->
